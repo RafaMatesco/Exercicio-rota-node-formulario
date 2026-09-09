@@ -70,6 +70,46 @@ app.get('/api/usuarios', async (req, res) => {
     }
 });
 
+app.put('/api/usuarios/:id', async (req, res) => {
+    try {
+        const { nome } = req.body || {};
+
+        if (!nome || !nome.trim()) {
+            return res.status(400).json({ erro: 'O campo "nome" é obrigatório.' });
+        }
+
+        const usuarioAtualizado = await Usuario.findByIdAndUpdate(
+            req.params.id,
+            { nome: nome.trim() },
+            { new: true }
+        );
+
+        if (!usuarioAtualizado) {
+            return res.status(404).json({ erro: 'Usuário não encontrado.' });
+        }
+
+        res.status(200).json(usuarioAtualizado);
+    } catch (err) {
+        console.error('Erro ao atualizar usuário:', err);
+        res.status(500).json({ erro: 'Erro interno ao atualizar usuário no banco de dados.' });
+    }
+});
+
+app.delete('/api/usuarios/:id', async (req, res) => {
+    try {
+        const usuarioRemovido = await Usuario.findByIdAndDelete(req.params.id);
+
+        if (!usuarioRemovido) {
+            return res.status(404).json({ erro: 'Usuário não encontrado.' });
+        }
+
+        res.status(200).json({ mensagem: 'Usuário excluído com sucesso.' });
+    } catch (err) {
+        console.error('Erro ao excluir usuário:', err);
+        res.status(500).json({ erro: 'Erro interno ao excluir usuário no banco de dados.' });
+    }
+});
+
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);

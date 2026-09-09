@@ -146,9 +146,42 @@
         font-size: 0.875rem;
     }
 
+    .user-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
     .user-card .user-id {
         color: #64748b;
         font-size: 0.75rem;
+    }
+
+    .user-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .btn-editar,
+    .btn-excluir {
+        width: auto;
+        padding: 0.4rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        border-radius: 6px;
+    }
+
+    .btn-editar {
+        background: #0284c7;
+    }
+
+    .btn-excluir {
+        background: #ef4444;
+    }
+
+    .btn-cancelar {
+        background: #475569;
+        margin-top: 0.5rem;
     }
 
     .empty-users {
